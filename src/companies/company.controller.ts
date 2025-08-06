@@ -11,6 +11,7 @@ export class CompanyController {
     return 'Company data imported!';
   }
 
+  // 删除所有数据库的数值
   @Delete('delete-all')
   async deleteAll() {
     await this.companyService.deleteAllCompanies();

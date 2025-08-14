@@ -54,4 +54,8 @@ export class UsersService {
       throw new NotFoundException(`User with id ${id} not found.`);
     }
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.userRepository.findOne({ where: { email } });
+  }
 }

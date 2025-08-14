@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
 
 //导入company的模组
 import { CompanyModule } from './companies/company.module';
@@ -10,6 +11,7 @@ import { Company } from './companies/company.entity';
 //导入relationship的模组
 import { RelationshipModule } from './relationships/relationship.module';
 import { Relationship } from './relationships/relationship.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { Relationship } from './relationships/relationship.entity';
     UsersModule,
     CompanyModule,
     RelationshipModule,
+    AuthModule,
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
 })
 export class AppModule {}

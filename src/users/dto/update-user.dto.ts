@@ -5,4 +5,7 @@ export class UpdateUserDto {
   status?: string;
   phone_number?: string;
   company?: string;
+
+  // 新增：更新时改密码
+  password?: string;
 }

@@ -5,4 +5,7 @@ export class CreateUserDto {
   status: string;
   phone_number: string;
   company: string;
+
+  // 新增：密码
+  password?: string;
 }

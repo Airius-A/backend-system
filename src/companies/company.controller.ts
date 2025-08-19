@@ -7,7 +7,9 @@ import {
   Put,
   Param,
   ParseIntPipe,
+  UseInterceptors,
 } from '@nestjs/common';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { CompanyService } from './company.service';
 import { Company } from './company.entity';
 import { CompanyFilterDto } from './dto/get-companies-by-filter.dto';
@@ -35,9 +37,14 @@ export class CompanyController {
     return this.companyService.createCompany(data);
   }
 
-  // 查
+  // 给 findAll 添加缓存
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('company:all')
+  // 给缓存限定时间5秒，每隔5秒刷新缓存
+  @CacheTTL(5000)
   @Get()
   async findAll() {
+    console.log('🔥 数据库查询触发'); // 用于测试缓存是否生效
     return this.companyService.findAll();
   }
 

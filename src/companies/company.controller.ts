@@ -44,7 +44,7 @@ export class CompanyController {
   @CacheTTL(5000)
   @Get()
   async findAll() {
-    console.log('🔥 数据库查询触发'); // 用于测试缓存是否生效
+    console.log('数据库查询触发'); // 用于测试缓存是否生效
     return this.companyService.findAll();
   }
 

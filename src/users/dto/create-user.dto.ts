@@ -1,11 +1,29 @@
-export class CreateUserDto {
-  name: string;
-  email: string;
-  role: string;
-  status: string;
-  phone_number: string;
-  company: string;
+import { IsString, IsOptional, IsEnum, IsEmail } from 'class-validator';
+import { UserRole, UserStatus } from '../entities/user.entity';
 
-  // 新增：密码
+export class CreateUserDto {
+  @IsString()
+  name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsEnum(UserRole)
+  role: UserRole; // ⚠️ 改为枚举类型
+
+  @IsEnum(UserStatus)
+  @IsOptional()
+  status?: UserStatus; // 可选字段
+
+  @IsOptional()
+  @IsString()
+  phone_number?: string;
+
+  @IsOptional()
+  @IsString()
+  company?: string;
+
+  @IsOptional()
+  @IsString()
   password?: string;
 }

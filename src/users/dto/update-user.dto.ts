@@ -1,11 +1,14 @@
-export class UpdateUserDto {
-  name?: string;
-  email?: string;
-  role?: string;
-  status?: string;
-  phone_number?: string;
-  company?: string;
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateUserDto } from './create-user.dto';
+import { IsEnum, IsOptional } from 'class-validator';
+import { UserRole, UserStatus } from '../entities/user.entity';
 
-  // 新增：更新时改密码
-  password?: string;
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+  @IsOptional()
+  @IsEnum(UserRole)
+  role?: UserRole; // 改为枚举类型
+
+  @IsOptional()
+  @IsEnum(UserStatus)
+  status?: UserStatus; // 改为枚举类型
 }

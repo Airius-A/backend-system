@@ -17,6 +17,11 @@ import { AuthModule } from './auth/auth.module';
 import { redisStore } from 'cache-manager-redis-yet';
 import { CacheModule } from '@nestjs/cache-manager';
 
+// 添加角色判定
+import { APP_GUARD, Reflector } from '@nestjs/core';
+import { RolesGuard } from './users/roles.guard';
+
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 @Module({
   imports: [
     // 全局配置模块，确保最先加载
@@ -48,6 +53,20 @@ import { CacheModule } from '@nestjs/cache-manager';
     CompanyModule,
     RelationshipModule,
     AuthModule,
+  ],
+
+  providers: [
+    Reflector,
+    // 全局 JWT 守卫（验证 token）
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    // 全局角色守卫（验证角色）
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}

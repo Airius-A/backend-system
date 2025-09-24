@@ -14,7 +14,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // validate 返回的对象会附加到 Request.user
-    return { userId: payload.sub, username: payload.username };
+    // 返回的对象会附加到 request.user
+    // ⚠️ 确保包含 role，用于 RolesGuard 校验
+    return {
+      userId: payload.sub,
+      username: payload.username,
+      email: payload.email,
+      role: payload.role, // 这里必须有
+    };
   }
 }
